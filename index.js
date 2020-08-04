@@ -68,13 +68,13 @@ function quantityCitiesForState() {
     });
 }
 
-function fiveStatesWithNumberCities(parameter){
+function fiveStatesWithNumberCities(measure){
     let index = 0;
     statesWithCities
         .map( ({name, cities}) => { 
             return { name, total: cities.length };
         })
-        .sort(( a, b) => parameter === 'greatter'? b.total - a.total: a.total - b.total)
+        .sort(( a, b) => measure === 'greatter'? b.total - a.total: a.total - b.total)
         .map(state => { 
             state.index = index++;
             return state;
@@ -83,13 +83,13 @@ function fiveStatesWithNumberCities(parameter){
         .forEach(({name, total}) => console.log(`[${name} - ${total}]`));
 }
 
-function statesWithNamedCities(parameter){
+function statesWithNamedCities(measure){
     statesWithCities
         .map(({id, name, cities}) =>{
             return {
                 id,
                 name,
-                cityBiggestName: cities.sort( (a, b) => parameter === 'biggest' ? b.name.length - a.name.length : a.name.length - b.name.length)[0]
+                cityBiggestName: cities.sort( (a, b) => measure === 'biggest' ? b.name.length - a.name.length : a.name.length - b.name.length)[0]
             }
         })
         .forEach (({name, cityBiggestName}) => {
@@ -97,7 +97,7 @@ function statesWithNamedCities(parameter){
         })
 }
 
-function cityWithName(parameter){
+function cityWithName(measure){
     let allCities = [];
     statesWithCities
         .map(({cities, initials}) => {
@@ -107,7 +107,7 @@ function cityWithName(parameter){
             })
         });
     let result = allCities
-        .sort( (a , b) => parameter === 'bigger' ? b.name.length - a.name.length : a.name.length - b.name.length)[0]
+        .sort( (a , b) => measure === 'bigger' ? b.name.length - a.name.length : a.name.length - b.name.length)[0]
     console.log(`[${result.initialsState} - ${result.name}]`);
 }
 
