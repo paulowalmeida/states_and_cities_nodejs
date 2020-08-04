@@ -10,10 +10,12 @@ function menu() {
     });
     reader1.question(`Escolha uma opção:
         \n1 - Quantidade de Cidades por Estado
-        \n2 - Os 5 Estados com maior numero de cidades
-        \n3 - Os 5 Estados com menor numero de cidades
+        \n2 - 5 Estados com maior numero de cidades
+        \n3 - 5 Estados com menor numero de cidades
         \n4 - Cidade com maior nome por Estado
         \n5 - Cidade com menor nome por Estado
+        \n6 - Cidade com Maior nome entre todos Estados
+        \n7 - Cidade com Menor nome entre todos Estados
         \nR: `, 
         answer => {
             reader1.close();
@@ -36,6 +38,14 @@ function menu() {
                 }
                 case '5':{ 
                     statesWithNamedCities('smallest');
+                    break;
+                }
+                case '6':{ 
+                    cityWithName('bigger');
+                    break;
+                }
+                case '7':{ 
+                    cityWithName('smaller');
                     break;
                 }
             }
@@ -85,6 +95,20 @@ function statesWithNamedCities(parameter){
         .forEach (({name, cityBiggestName}) => {
             console.log(`[${name} - ${cityBiggestName.name}]`);
         })
+}
+
+function cityWithName(parameter){
+    let allCities = [];
+    statesWithCities
+        .map(({cities, initials}) => {
+            cities.map( city => {
+                city.initialsState = initials;
+                allCities = [...allCities, city];
+            })
+        });
+    let result = allCities
+        .sort( (a , b) => parameter === 'bigger' ? b.name.length - a.name.length : a.name.length - b.name.length)[0]
+    console.log(`[${result.initialsState} - ${result.name}]`);
 }
 
 async function createStatesWithCities() {
