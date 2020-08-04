@@ -31,11 +31,11 @@ function menu() {
                     break;
                 }
                 case '4':{ 
-                    citiesWithBiggestNameForState();
+                    statesWithNamedCities('biggest');
                     break;
                 }
                 case '5':{ 
-                    citiesWithLowestNameForState();
+                    statesWithNamedCities('smallest');
                     break;
                 }
             }
@@ -73,31 +73,17 @@ function fiveStatesWithNumberCities(parameter){
         .forEach(({name, total}) => console.log(`[${name} - ${total}]`));
 }
 
-function citiesWithBiggestNameForState(){
+function statesWithNamedCities(parameter){
     statesWithCities
         .map(({id, name, cities}) =>{
             return {
                 id,
                 name,
-                cityBiggestName: cities.sort( (a, b) => b.name.length - a.name.length)[0]
+                cityBiggestName: cities.sort( (a, b) => parameter === 'biggest' ? b.name.length - a.name.length : a.name.length - b.name.length)[0]
             }
         })
         .forEach (({name, cityBiggestName}) => {
             console.log(`[${name} - ${cityBiggestName.name}]`);
-        })
-}
-
-function citiesWithLowestNameForState(){
-    statesWithCities
-        .map(({id, name, cities}) =>{
-            return {
-                id,
-                name,
-                cityBiggestName: cities.sort( (a, b) => a.name.length - b.name.length)[0]
-            }
-        })
-        .forEach (currentState => {
-            console.log(`[${currentState.name} - ${currentState.cityBiggestName.name}]`);
         })
 }
 
